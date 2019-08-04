@@ -4,6 +4,7 @@ import logging
 from libpurecool.const import HeatMode, HeatState, FocusMode, HeatTarget
 from libpurecool.dyson_pure_state import DysonPureHotCoolState
 from libpurecool.dyson_pure_hotcool_link import DysonPureHotCoolLink
+from libpurecool.dyson_pure_state_v2 import DysonPureCoolV2State
 
 from homeassistant.components.climate import ClimateDevice
 from homeassistant.components.climate.const import (
@@ -57,7 +58,7 @@ class DysonPureHotCoolLinkDevice(ClimateDevice):
 
     def on_message(self, message):
         """Call when new messages received from the climate."""
-        if not isinstance(message, DysonPureHotCoolState):
+        if not isinstance(message, (DysonPureHotCoolState, DysonPureCoolV2State)):
             return
 
         _LOGGER.debug("Message received for climate device %s : %s", self.name, message)

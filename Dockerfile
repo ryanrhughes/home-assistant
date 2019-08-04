@@ -27,6 +27,11 @@ COPY requirements_all.txt requirements_all.txt
 RUN pip3 install --no-cache-dir -r requirements_all.txt && \
     pip3 install --no-cache-dir mysqlclient psycopg2 uvloop==0.12.2 cchardet cython tensorflow
 
+# Hackishly replace libpurecool w/ Parlane's updated branch
+RUN apt -y update && apt -y install git && \
+    pip3 uninstall libpurecool -y && \
+    pip3 install --no-cache-dir git+https://github.com/Parlane/libpurecool.git@add_hp04
+
 # Copy source
 COPY . .
 
